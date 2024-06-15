@@ -79,7 +79,7 @@ function App() {
           <input
             style={inputStyle}
             type="text"
-            placeholder="John..."
+            placeholder="Name..."
             onChange={(event) => {
               setUsername(event.target.value);
             }}
