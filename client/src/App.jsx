@@ -17,12 +17,67 @@ function App() {
     }
   };
 
+  const appStyle = {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100vh",
+    background: "linear-gradient(135deg, #667eea, #764ba2)",
+    fontFamily: "'Poppins', sans-serif",
+  };
+
+  const joinChatContainerStyle = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    padding: "40px",
+    borderRadius: "15px",
+    boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
+  };
+
+  const inputStyle = {
+    padding: "15px",
+    margin: "10px 0",
+    borderRadius: "10px",
+    border: "1px solid #ddd",
+    width: "100%",
+    maxWidth: "300px",
+    fontSize: "16px",
+    boxShadow: "0 5px 15px rgba(0, 0, 0, 0.05)",
+  };
+
+  const buttonStyle = {
+    padding: "15px 30px",
+    marginTop: "20px",
+    borderRadius: "10px",
+    border: "none",
+    background: "linear-gradient(135deg, #42e695, #3bb2b8)",
+    color: "#fff",
+    cursor: "pointer",
+    fontSize: "16px",
+    transition: "background 0.3s",
+    boxShadow: "0 10px 20px rgba(0, 0, 0, 0.1)",
+  };
+
+  const buttonHoverStyle = {
+    background: "linear-gradient(135deg, #3bb2b8, #42e695)",
+  };
+
+  const headingStyle = {
+    marginBottom: "20px",
+    color: "#333",
+  };
+
+  const [hover, setHover] = useState(false);
+
   return (
-    <div className="App">
+    <div style={appStyle}>
       {!showChat ? (
-        <div className="joinChatContainer">
-          <h3>Join A Chat</h3>
+        <div style={joinChatContainerStyle}>
+          <h3 style={headingStyle}>Join A Chat</h3>
           <input
+            style={inputStyle}
             type="text"
             placeholder="John..."
             onChange={(event) => {
@@ -30,13 +85,21 @@ function App() {
             }}
           />
           <input
+            style={inputStyle}
             type="text"
             placeholder="Room ID..."
             onChange={(event) => {
               setRoom(event.target.value);
             }}
           />
-          <button onClick={joinRoom}>Join A Room</button>
+          <button
+            style={{ ...buttonStyle, ...(hover ? buttonHoverStyle : {}) }}
+            onClick={joinRoom}
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+          >
+            Join Room
+          </button>
         </div>
       ) : (
         <Chat socket={socket} username={username} room={room} />
